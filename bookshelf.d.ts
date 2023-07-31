@@ -1,4 +1,5 @@
-// Type definitions for bookshelfjs v1.2.0
+// Adapted from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/4c5e73798e3375915c3bb28e378dbd9f8220b151/types/bookshelf/index.d.ts
+// Type definitions for @metabrainz/bookshelf v1.3
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 //                 Vesa Poikajärvi <https://github.com/vesse>
@@ -7,23 +8,22 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
-import Knex = require('knex');
-import knex = require('knex');
-import BlueBird = require('bluebird');
-import Lodash = require('lodash');
-import createError = require('create-error');
+import {Knex} from 'knex';
+import BlueBird from 'bluebird';
+import Lodash from 'lodash';
+import createError from 'create-error';
 
 interface Bookshelf extends Bookshelf.Events<any> {
     VERSION: string;
-    knex: knex;
+    knex: Knex;
     Model: typeof Bookshelf.Model;
     Collection: typeof Bookshelf.Collection;
     model(name: string, model?: typeof Bookshelf.Model | Object, staticProperties?: any): typeof Bookshelf.Model;
     plugin(name: string | string[] | Function, options?: any): Bookshelf;
-    transaction<T>(callback: (transaction: knex.Transaction) => PromiseLike<T>): BlueBird<T>;
+    transaction<T>(callback: (transaction: Knex.Transaction) => PromiseLike<T>): BlueBird<T>;
 }
 
-declare function Bookshelf(knex: knex): Bookshelf;
+declare function Bookshelf(knex: Knex): Bookshelf;
 
 declare namespace Bookshelf {
     type SortOrder = 'ASC' | 'asc' | 'DESC' | 'desc';
@@ -432,4 +432,4 @@ declare namespace Bookshelf {
     interface CollectionCreateOptions extends ModelOptions, SyncOptions, CollectionAddOptions, SaveOptions {}
 }
 
-export = Bookshelf;
+export default Bookshelf;
